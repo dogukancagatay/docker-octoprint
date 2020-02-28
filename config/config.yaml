@@ -1,0 +1,14 @@
+plugins:
+  announcements:
+    channels:
+      _important:
+        read_until: 1478614200
+  cura:
+    cura_engine: /usr/local/bin/CuraEngine
+serial:
+  autoconnect: true
+  baudrate: 0
+  port: AUTO
+slicing:
+  defaultProfiles:
+    cura: ultimaker

@@ -5,7 +5,7 @@ This repository contains everything you need to run [Octoprint](https://github.c
 # Getting started
 
 ```bash
-git clone https://github.com/dogukancagatay/octoprint-docker.git && cd octoprint-docker
+git clone https://github.com/dogukancagatay/docker-octoprint.git && cd docker-octoprint
 
 # Search for you 3D printer serial port (usually it's /dev/ttyUSB0 or /dev/ttyACM0)
 ls /dev | grep tty

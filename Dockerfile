@@ -39,12 +39,8 @@ RUN cd /tmp && \
   make install && \
   rm -Rf /tmp/${CURA_VERSION}.tar.gz /tmp/CuraEngine-${CURA_VERSION} /tmp/${CURA_VERSION}.tar.gz.1 /tmp/libArcus-${CURA_VERSION}
 
-
-RUN	pip install OctoPrint==1.4.0
-
-COPY ./docker-entrypoint.sh /
-
-RUN addgroup -g ${GID} octoprint && \
+RUN	pip install OctoPrint==1.4.0 && \
+  addgroup -g ${GID} octoprint && \
   adduser -u ${UID} -h /home/octoprint -s /bin/bash -D -G octoprint octoprint && \
   adduser octoprint dialout && \
   mkdir -p /data && \
@@ -55,5 +51,4 @@ EXPOSE 5000
 WORKDIR /data
 
 USER octoprint
-
 CMD ["octoprint", "serve", "--config", "/data/config.yaml", "--basedir", "/data"]

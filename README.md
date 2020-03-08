@@ -22,7 +22,7 @@ You can display the log using `docker-compose logs -f`
 
 ## Without docker-compose
 ```bash
-docker run -d -v ./config:/home/octoprint/.octoprint --device /dev/ttyUSB0:/dev/ttyUSB0 -p 5000:5000 --name octoprint dcagatay/octoprint:latest
+docker run -d -v ./config:/data --device /dev/ttyUSB0:/dev/ttyUSB0 -p 5000:5000 --name octoprint dcagatay/octoprint:latest
 ```
 
 Adapted from [https://github.com/OctoPrint/docker](https://github.com/OctoPrint/docker)

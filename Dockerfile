@@ -2,8 +2,8 @@ FROM python:3.8-alpine
 MAINTAINER Dogukan Cagatay <dcagatay@gmail.com>
 
 ENV CURA_VERSION "4.5.0"
-ENV UID "1000"
-ENV GID "1000"
+ENV UID "5000"
+ENV GID "5000"
 
 RUN apk add --no-cache \
 	bash \
@@ -39,16 +39,21 @@ RUN cd /tmp && \
   make install && \
   rm -Rf /tmp/${CURA_VERSION}.tar.gz /tmp/CuraEngine-${CURA_VERSION} /tmp/${CURA_VERSION}.tar.gz.1 /tmp/libArcus-${CURA_VERSION}
 
+
+RUN	pip install OctoPrint==1.4.0
+
+COPY ./docker-entrypoint.sh /
+
 RUN addgroup -g ${GID} octoprint && \
-	adduser -u ${UID} -h /home/octoprint -s /bin/bash -D -G octoprint octoprint && \
-	adduser octoprint dialout && \
-	pip install OctoPrint
+  adduser -u ${UID} -h /home/octoprint -s /bin/bash -D -G octoprint octoprint && \
+  adduser octoprint dialout && \
+  mkdir -p /data && \
+  chown -R ${UID}:${GID} /data
+
+VOLUME /data
+EXPOSE 5000
+WORKDIR /data
 
 USER octoprint
 
-RUN mkdir /home/octoprint/.octoprint
-
-VOLUME /home/octoprint/.octoprint
-EXPOSE 5000
-
-CMD ["octoprint", "serve"]
+CMD ["octoprint", "serve", "--config", "/data/config.yaml", "--basedir", "/data"]
